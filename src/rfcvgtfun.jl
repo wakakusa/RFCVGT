@@ -1,4 +1,8 @@
 #クロスバリデーションとグリッドチューンを同時実行する関数
+function rfcvgt(;nfeature=0,ntree=[500,1000],nrate=[0.7])
+ return gridsearch(;nfeature=nfeature,ntree=ntree,nrate=nrate) 
+end
+
 function rfcvgt(Y_train,X_train;nfeature=0,ntree=[500,1000],nrate=[0.7])
  Y_train=Y_train;
  X_train=X_train;
