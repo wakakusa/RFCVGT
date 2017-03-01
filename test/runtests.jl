@@ -25,12 +25,12 @@ xind=convert(Array,1:4);
 
 
 ###パッケージがデータを扱えるように変換
-Y_train=convert(Array , training[:,yind] );
-X_train=convert(Array , training[:,xind] );
+Ytraining=convert(Array , training[:,yind] );
+Xtraining=convert(Array , training[:,xind] );
 
 ###パラメータサーチ
-#r=gridsearch(Y_train,X_train,nfeature=[1,2,4],ntree=[250,500])
-r=rfcvgt(Y_train,X_train,nfeature=[1,2,4],ntree=[250,500])
+#r=gridsearch(Ytraining,Xtraining,nfeature=[1,2,4],ntree=[250,500])
+r=rfcvgt(nfeature=[1,2,4],ntree=[250,500])
 
 
 ##回帰
@@ -52,9 +52,9 @@ newy=[78.5,95.9,109.2];
 newX = DataFrame(x1=newx1,x2=newx2,x3=newx3,x4=newx4)
 
 ##ランダムフォレスト用に変換
-Y_train=convert(Array,ds[:,:y])
-X_train=convert(Array,ds[:,[:x1,:x2,:x3,:x4]])
+Ytraining=convert(Array,ds[:,:y])
+Xtraining=convert(Array,ds[:,[:x1,:x2,:x3,:x4]])
 newXrf=convert(Array,newX)
 
 ###パラメータサーチ
-r=rfcvgt(Y_train,X_train)
+r=rfcvgt()

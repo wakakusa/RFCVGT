@@ -1,14 +1,14 @@
 #クロスバリデーションの評価関数
 function unievalfun(model,inds)
   ##予測
-  pred =apply_forest(model,X_train[inds,:])
+  pred =apply_forest(model,X_trainXtraining[inds,:])
 
-  if(typeof(Y_train) == Array{Float64,1}||typeof(Y_train) == Array{Float64,2})
+  if(typeof(Ytraining) == Array{Float64,1}||typeof(Ytraining) == Array{Float64,2})
   ##回帰式の評価式
-    prec=sum(abs(Y_train[inds,1] - pred))
+    prec=sum(abs(Ytraining[inds,1] - pred))
   else
   ##判別分類の評価式
-    conf_mat=confusion_matrix(Y_train[inds,1],pred).matrix
+    conf_mat=confusion_matrix(Ytraining[inds,1],pred).matrix
     prec=trace(conf_mat)/sum(conf_mat)
   end
 
@@ -17,16 +17,16 @@ function unievalfun(model,inds)
 end
 
 
-function unievalfun(model,inds,Y_train,X_train)
+function unievalfun(model,inds,Ytraining,X_trainXtraining)
   ##予測
-  pred =apply_forest(model,X_train[inds,:])
+  pred =apply_forest(model,X_trainXtraining[inds,:])
 
-  if(typeof(Y_train[inds,:]) == Array{Float64,1}||typeof(Y_train) == Array{Float64,2})
+  if(typeof(Ytraining[inds,:]) == Array{Float64,1}||typeof(Ytraining) == Array{Float64,2})
   ##回帰式の評価式
-    prec=sum(abs(Y_train[inds,1] - pred))
+    prec=sum(abs(Ytraining[inds,1] - pred))
   else
   ##判別分類の評価式
-    conf_mat=confusion_matrix(Y_train[inds,1],pred).matrix
+    conf_mat=confusion_matrix(Ytraining[inds,1],pred).matrix
     prec=trace(conf_mat)/sum(conf_mat)
   end
 
