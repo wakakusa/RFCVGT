@@ -1,7 +1,7 @@
 #クロスバリデーションの評価関数
 function unievalfun(model,inds)
   ##予測
-  pred =apply_forest(model,X_trainXtraining[inds,:])
+  pred =apply_forest(model,Xtraining[inds,:])
 
   if(typeof(Ytraining) == Array{Float64,1}||typeof(Ytraining) == Array{Float64,2})
   ##回帰式の評価式
@@ -17,9 +17,9 @@ function unievalfun(model,inds)
 end
 
 
-function unievalfun(model,inds,Ytraining,X_trainXtraining)
+function unievalfun(model,inds,Ytraining,Xtraining)
   ##予測
-  pred =apply_forest(model,X_trainXtraining[inds,:])
+  pred =apply_forest(model,Xtraining[inds,:])
 
   if(typeof(Ytraining[inds,:]) == Array{Float64,1}||typeof(Ytraining) == Array{Float64,2})
   ##回帰式の評価式

@@ -3,9 +3,9 @@ function rfcvgt(;nfeature=0,ntree=[500,1000],nrate=[0.7])
  return gridsearch(;nfeature=nfeature,ntree=ntree,nrate=nrate) 
 end
 
-function rfcvgt(Ytraining,X_trainXtraining;nfeature=0,ntree=[500,1000],nrate=[0.7])
+function rfcvgt(Ytraining,Xtraining;nfeature=0,ntree=[500,1000],nrate=[0.7])
  Ytraining=Ytraining;
- X_trainXtraining=X_trainXtraining;
+ Xtraining=Xtraining;
  
 #  include(string(Pkg.dir(),"/RFCVGT/src/unievalfun.jl"))
 #  include(string(Pkg.dir(),"/RFCVGT/src/evalfun.jl"))
