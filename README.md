@@ -1,15 +1,8 @@
 # RFCVGT
 このパッケージは、ランダムフォレストのパラメータを決定する際に利用するグリッドチューンとクロスバリデーションを一括実行できるようにパッケージ化したものです。
 
-## 注意
-以下の変数は、２０１７年３月１日時点で固定で設定しています。  
-  * Ytraining：従属変数  
-  * Xtraining：説明変数  
-
-
 ## 使い方
 using RFCVGT  
-using Base.Test
 
 using RDatasets
 iris = dataset("datasets", "iris");
@@ -35,7 +28,7 @@ Ytraining=convert(Array , training[:,yind] );
 Xtraining=convert(Array , training[:,xind] );  
 
 ### パラメータサーチ
-r=rfcvgt(nfeature=[1,2,4],ntree=[250,500])
+r=searchparm(Ytraining,Xtraining,nfeature=[1,2,4],ntree=[250,500])
 
 
 ### 回帰
@@ -54,12 +47,12 @@ newx2=[26,52,55];
 newx3=[6,6,9];  
 newx4=[60,33,22];  
 newy=[78.5,95.9,109.2];  
-newX = DataFrame(x1=newx1,x2=newx2,x3=newx3,x4=newx4)  
+newX = DataFrame(x1=newx1,x2=newx2,x3=newx3,x4=newx4);  
 
 ### ランダムフォレスト用に変換
-Ytraining=convert(Array,ds[:,:y])  
-Xtraining=convert(Array,ds[:,[:x1,:x2,:x3,:x4]])  
-newXrf=convert(Array,newX)  
+Ytraining=convert(Array,ds[:,:y]);  
+Xtraining=convert(Array,ds[:,[:x1,:x2,:x3,:x4]]);  
+newXrf=convert(Array,newX);  
 
 ### パラメータサーチ
-r=rfcvgt()
+r=searchparm(Ytraining,Xtraining)

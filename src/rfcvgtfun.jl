@@ -1,17 +1,23 @@
 #クロスバリデーションとグリッドチューンを同時実行する関数
-function rfcvgt(;nfeature=0,ntree=[500,1000],nrate=[0.7])
- return gridsearch(;nfeature=nfeature,ntree=ntree,nrate=nrate) 
-end
+function searchparm(Y,X;nfeature=0,ntree=[500,1000],nrate=[0.7],CV_n=5)
+  Ytraining=Y;
+  Xtraining=X;
+  CV_n=CV_n;
 
-function rfcvgt(Ytraining,Xtraining;nfeature=0,ntree=[500,1000],nrate=[0.7])
- Ytraining=Ytraining;
- Xtraining=Xtraining;
- 
-#  include(string(Pkg.dir(),"/RFCVGT/src/unievalfun.jl"))
-#  include(string(Pkg.dir(),"/RFCVGT/src/evalfun.jl"))
-#  include(string(Pkg.dir(),"/RFCVGT/src/estfun.jl"))
-#  include(string(Pkg.dir(),"/RFCVGT/src/gridsearch.jl"))
+  #ランダムフォレストによる予測モデルの構築およびクロスバリデーションの実行
+  # estfun(nfeature,ntree,nrate)
+  estfun=Estfun(Ytraining,Xtraining,CV_n)
 
- return gridsearch(;nfeature=nfeature,ntree=ntree,nrate=nrate)
-  
+  #評価関数の定義
+  # evalfun(scores)
+  evalfun=Evalfun(Ytraining,Xtraining,CV_n)
+
+  # グリッドサーチの実行
+  gridserch=Gridserch(Ytraining,Xtraining)
+  return  r=gridtune(estfun , evalfun,
+                        ( "nfeature",nfeature ) ,
+                        ( "ntree",ntree ) ,
+                        (" nrate",nrate ) ;
+                        verbose=true) 
+                        
 end
