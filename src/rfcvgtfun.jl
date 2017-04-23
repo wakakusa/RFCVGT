@@ -12,18 +12,22 @@ function searchparm(Y,X;nfeature=0,ntree=[500,1000],nrate=[0.7],CV_n=5)
   # evalfun(scores)
   evalfun=Evalfun(Ytraining,Xtraining,CV_n)
 
-  # グリッドサーチの実行
-  gridserch=Gridserch(Ytraining,Xtraining)
-
   #パラメータの自動算定
   if(nfeature==0)
     if(Integer(round(size(Xtraining)[2]/3,0)) == 0)
-      nfeature=[1,Integer(round(sqrt(size(Xtraining)[2]),0)) ]
+      nfeature=[1,Integer(round(sqrt(size(Xtraining)[2]),0)) ,size(Xtraining)[2]]
     else
-      nfeature=[Integer(round(size(Xtraining)[2]/3,0)),Integer(round(sqrt(size(Xtraining)[2]),0))]
+      nfeature=[1,Integer(round(size(Xtraining)[2]/3,0)),Integer(round(sqrt(size(Xtraining)[2]),0)),size(Xtraining)[2]]
     end
+
+     #ダブリを除去
+    nfeature=DataFrames.DataFrame(ind=nfeature)
+    nfeature=DataFrames.by(nfeature, :ind, df -> size(df, 1))
+    nfeature=convert(Array,nfeature[:,:ind])
+
   end
 
+  # グリッドサーチの実行
   return  r=gridtune(estfun , evalfun,
                         ( "nfeature",nfeature ) ,
                         ( "ntree",ntree ) ,

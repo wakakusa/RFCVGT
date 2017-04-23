@@ -11,7 +11,5 @@ export unievalfun,estfun,evalfun,gridsearch
 include("estfun.jl")
 include("unievalfun.jl")
 include("evalfun.jl")
-include("gridsearch.jl")
 include("rfcvgtfun.jl")
-#include("searchparm.jl")
 end # module
