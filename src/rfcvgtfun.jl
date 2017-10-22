@@ -12,18 +12,16 @@ function searchparm(Y,X;nfeature=0,ntree=[500,1000],nrate=[0.7],CV_n=5,rev=false
 
   #パラメータの自動算定
   if(nfeature==0)
-      point1=Integer(round(size(Xtraining)[2]/3,0))
-      point2=Integer(round(sqrt(size(Xtraining)[2]),0))
-      nfeature=[1,2,Integer(round((point1+2)/2)),point1,Integer(round((point1+point2)/2)),point2,Integer(round((size(Xtraining)[2]+point2)/2)),size(Xtraining)[2]]
-    end
+    point1=Integer(round(size(Xtraining)[2]/3,0))
+    point2=Integer(round(sqrt(size(Xtraining)[2]),0))
+    nfeature=[1,2,Integer(round((point1+2)/2)),point1,Integer(round((point1+point2)/2)),point2,Integer(round((size(Xtraining)[2]+point2)/2)),size(Xtraining)[2]]
+  end
 
      #特徴量の重複を除去
     nfeature=DataFrames.DataFrame(ind=nfeature)
     nfeature=DataFrames.by(nfeature, :ind, df -> size(df, 1))
     nfeature=convert(Array,nfeature[:,:ind])
     nfeature=sort(nfeature,rev=rev)
-
-  end
 
   # グリッドサーチの実行
   return  r=gridtune(estfun , evalfun,
